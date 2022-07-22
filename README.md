@@ -39,10 +39,34 @@ PARTITION BY RANGE (end_dt)
 DEFAULT PARTITION hot   );
 ```
 
-2022-07-22 comes and we launch this command:
+2022-07-22 comes and to actual partiotions we launch this command:
 ``` sql
 select * from my.f_table_partition_actual('my.agrs'::regclass, -12,-25,5);
 ```
 where parameters:<br>
 1. table that partitions should actual<br>
-2. 
+2. delta in monthes starting from the current date for the year partitioning. Partitions would be actauled from the begining to this date computes with delta. Call it "year delta date".<br>
+3. delta in days starting from the current date for month partitioning. Partitions would be actualed from "year delta date" to "month delta date".<br>
+4. delta in days starting from the current date for day partitioning. It would create from daily partitions from "month delta date" to "day delta date".<br>
+
+So this launch keep all data and modify table to state like this:
+``` sql
+CREATE TABLE my.agrs (
+	agrmnt_id int,
+	metric_id smallint,
+	start_dt date,
+	end_dt date,
+	amount DECIMAL) 
+DISTRIBUTED BY (agrmnt_id)
+PARTITION BY RANGE (end_dt)
+  (START (date '2011-01-01')
+   END (date '2021-06-01')
+   EVERY (INTERVAL '1 YEAR'),
+   START (date '2021-06-01')
+   END (date '2021-06-19')
+   EVERY (INTERVAL '1 MONTH'),
+   START (date '2022-06-19')
+   END (date '2022-07-19')
+   EVERY (INTERVAL '1 MONTH'),
+DEFAULT PARTITION hot   );
+```
