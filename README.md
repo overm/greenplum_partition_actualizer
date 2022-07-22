@@ -6,12 +6,11 @@ First of all take file f_table_partition_actual.sql and change target schema nam
 my.
 ```
 <br>
-Either you can change meta table name. Replace this text:<br>
+Either you can change meta table name. Replace this text:
 ```
 t_table_partition_meta
 ```
 Than run it in your database.
-<br>
 # Using
 You should have a table with one level range partition on date field.
 
