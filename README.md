@@ -1,7 +1,7 @@
 # greenplum_partition_actualizer
 Functions, that help to keep your date partitions up to date
 # Installation
-First of all take file change target schema name. Replace this text:<br>
+First of all take file f_table_partition_actual.sql and change target schema name. Replace this text:<br>
 ```
 my.
 ```
